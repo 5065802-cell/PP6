@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>HTML Injection & Escaping</title></head>
+<body>
+  <h2>Feedback Form</h2>
+  <form onsubmit="submitFeedback(event)">
+    <input type="text" id="fb" size="40" placeholder="Enter <b>Hello</b>">
+    <button type="submit">Submit</button>
+  </form>
+  <p><b>Unfiltered (Vulnerable):</b> <span id="rawOut"></span></p>
+  <p><b>Escaped (Safe):</b> <span id="safeOut"></span></p>
+
+  <script>
+    function escapeHTML(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+    function submitFeedback(e) {
+      e.preventDefault();
+      var val = document.getElementById("fb").value.trim();
+      if (!val) return alert("Input cannot be empty");
+      document.getElementById("rawOut").innerHTML = val;
+      document.getElementById("safeOut").innerHTML = escapeHTML(val);
+    }
+  </script>
+</body>
+</html>

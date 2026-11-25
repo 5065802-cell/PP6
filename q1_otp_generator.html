@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>6-Digit OTP Generator</title></head>
+<body>
+  <h2>OTP Verification</h2>
+  <button onclick="generateOTP()">Generate 6-Digit OTP</button>
+  <p id="otpDisplay"></p>
+
+  <input type="text" id="userOtp" placeholder="Enter OTP">
+  <button onclick="verifyOTP()">Verify</button>
+  <p id="status"></p>
+
+  <script>
+    var currentOtp = "";
+    function generateOTP() {
+      currentOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      document.getElementById("otpDisplay").textContent = "Generated OTP (Demo): " + currentOtp;
+    }
+    function verifyOTP() {
+      var entered = document.getElementById("userOtp").value.trim();
+      var msg = (entered === currentOtp && currentOtp !== "") ? "OTP Verified" : "Invalid OTP";
+      document.getElementById("status").textContent = msg;
+    }
+  </script>
+</body>
+</html>
